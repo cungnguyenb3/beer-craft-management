@@ -24,9 +24,9 @@
 
     <properties>
         <!-- Build properties -->
-        <maven.version>3.8.4</maven.version>
-        <java.version>11</java.version>
-        <node.version>v16.14.0</node.version>
+        <maven.version>3.8.5</maven.version>
+        <java.version>16</java.version>
+        <node.version>v16.14.2</node.version>
         <npm.version>8.6.0</npm.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -308,6 +308,12 @@
             <scope>provided</scope>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
