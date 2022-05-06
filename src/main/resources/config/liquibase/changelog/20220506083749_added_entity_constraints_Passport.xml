@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Passport.
+    -->
+    <changeSet id="20220506083749-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="member_id"
+                                 baseTableName="passport"
+                                 constraintName="fk_passport__member_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="member"/>
+
+        <addForeignKeyConstraint baseColumnNames="beer_id"
+                                 baseTableName="passport"
+                                 constraintName="fk_passport__beer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="beer"/>
+    </changeSet>
+</databaseChangeLog>

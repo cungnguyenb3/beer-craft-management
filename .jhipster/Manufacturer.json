@@ -1,0 +1,27 @@
+{
+  "applications": "*",
+  "changelogDate": "20220506083745",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "manufacturer",
+  "fields": [
+    {
+      "fieldName": "companyName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Manufacturer",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "manufacturer",
+      "relationshipName": "country",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
