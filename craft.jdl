@@ -1,0 +1,46 @@
+entity Country {
+	countryName String,
+    countryCode String,
+	phoneCode Integer
+}
+
+entity Manufacturer {
+	companyName String
+}
+
+entity Member {
+    address String,
+    dateOfBirth Instant,
+    phone String
+ }
+
+entity Category {
+	jobTitle String,
+    description String
+}
+
+entity Beer {
+	name String,
+    description String,
+    price Double
+}
+
+entity Passport {
+	addtionTime Instant
+}
+
+relationship OneToOne {
+  Member{user} to User
+  Passport{member} to Member
+}
+
+relationship ManyToOne {
+	Beer{category} to Category
+    Manufacturer{country} to Country
+    Beer{manufacturer} to Manufacturer
+    Passport{beer} to Beer
+}
+
+// Set pagination options
+service * with serviceClass
+paginate * with pagination
