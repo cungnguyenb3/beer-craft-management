@@ -2,28 +2,41 @@ package com.formos.craft.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
- * A category.
+ * A Category.
  */
 @Entity
 @Table(name = "category")
-public class Category extends AbstractAuditingEntity implements Serializable {
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @NotNull
+    @Size(min = 2, max = 255)
+    @Column(name = "name", length = 255, nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @NotNull
+    @Size(min = 2, max = 4500)
+    @Column(name = "description", length = 4500, nullable = false)
     private String description;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Category id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -31,7 +44,12 @@ public class Category extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    public Category name(String name) {
+        this.setName(name);
+        return this;
     }
 
     public void setName(String name) {
@@ -39,14 +57,19 @@ public class Category extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
+    }
+
+    public Category description(String description) {
+        this.setDescription(description);
+        return this;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public Category() {}
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -65,8 +88,13 @@ public class Category extends AbstractAuditingEntity implements Serializable {
         return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
-        return "Category{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + '}';
+        return "Category{" +
+            "id=" + getId() +
+            ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
+            "}";
     }
 }

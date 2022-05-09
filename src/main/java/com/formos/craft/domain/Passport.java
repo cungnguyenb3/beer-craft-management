@@ -1,51 +1,115 @@
 package com.formos.craft.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
 
 /**
- * A passport.
+ * A Passport.
  */
 @Entity
 @Table(name = "passport")
-public class Passport {
+public class Passport implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "addition_time")
     private Instant additionTime;
 
-    @ManyToOne
-    private Beer beer;
-
-    @ManyToOne
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
     private Member member;
 
-    public Passport() {}
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "category", "manufacturer" }, allowSetters = true)
+    private Beer beer;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Passport id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public Instant getAdditionTime() {
+        return this.additionTime;
+    }
+
+    public Passport additionTime(Instant additionTime) {
+        this.setAdditionTime(additionTime);
+        return this;
+    }
+
+    public void setAdditionTime(Instant additionTime) {
+        this.additionTime = additionTime;
+    }
+
+    public Member getMember() {
+        return this.member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public Passport member(Member member) {
+        this.setMember(member);
+        return this;
+    }
+
     public Beer getBeer() {
-        return beer;
+        return this.beer;
     }
 
     public void setBeer(Beer beer) {
         this.beer = beer;
     }
 
-    public Member getMember() {
-        return member;
+    public Passport beer(Beer beer) {
+        this.setBeer(beer);
+        return this;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Passport)) {
+            return false;
+        }
+        return id != null && id.equals(((Passport) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "Passport{" +
+            "id=" + getId() +
+            ", additionTime='" + getAdditionTime() + "'" +
+            "}";
     }
 }

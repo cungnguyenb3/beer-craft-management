@@ -2,28 +2,39 @@ package com.formos.craft.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
- * A manufacturer.
+ * A Manufacturer.
  */
 @Entity
 @Table(name = "manufacturer")
-public class Manufacturer extends AbstractAuditingEntity implements Serializable {
+public class Manufacturer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "company_name")
+    @NotNull
+    @Size(min = 2, max = 255)
+    @Column(name = "company_name", length = 255, nullable = false)
     private String companyName;
 
     @ManyToOne
     private Country country;
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
-        return id;
+        return this.id;
+    }
+
+    public Manufacturer id(Long id) {
+        this.setId(id);
+        return this;
     }
 
     public void setId(Long id) {
@@ -31,7 +42,12 @@ public class Manufacturer extends AbstractAuditingEntity implements Serializable
     }
 
     public String getCompanyName() {
-        return companyName;
+        return this.companyName;
+    }
+
+    public Manufacturer companyName(String companyName) {
+        this.setCompanyName(companyName);
+        return this;
     }
 
     public void setCompanyName(String companyName) {
@@ -39,10 +55,43 @@ public class Manufacturer extends AbstractAuditingEntity implements Serializable
     }
 
     public Country getCountry() {
-        return country;
+        return this.country;
     }
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Manufacturer country(Country country) {
+        this.setCountry(country);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Manufacturer)) {
+            return false;
+        }
+        return id != null && id.equals(((Manufacturer) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "Manufacturer{" +
+            "id=" + getId() +
+            ", companyName='" + getCompanyName() + "'" +
+            "}";
     }
 }

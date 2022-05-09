@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="passport">
+      <h2 data-cy="passportDetailsHeading"><span>Passport</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ passport.id }}</span>
+        </dd>
+        <dt><span>Addition Time</span></dt>
+        <dd>
+          <span>{{ passport.additionTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Member</span></dt>
+        <dd>
+          <div *ngIf="passport.member">
+            <a [routerLink]="['/member', passport.member?.id, 'view']">{{ passport.member?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Beer</span></dt>
+        <dd>
+          <div *ngIf="passport.beer">
+            <a [routerLink]="['/beer', passport.beer?.id, 'view']">{{ passport.beer?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/passport', passport.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

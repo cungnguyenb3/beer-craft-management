@@ -1,0 +1,47 @@
+entity Country {
+	countryName String minlength(2) maxlength(255) required,
+    countryCode String minlength(2) maxlength(10) required,
+	phoneCode Integer
+}
+
+entity Manufacturer {
+	companyName String minlength(2) maxlength(255) required, 
+}
+
+entity Member {
+    address String minlength(2) maxlength(255) required,
+    dateOfBirth Instant,
+    phone String minlength(10) maxlength(20),
+ }
+ 
+entity Category {
+	name String minlength(2) maxlength(255) required,
+    description String minlength(2) maxlength(4500) required, 
+}
+
+entity Beer {
+	name String minlength(2) maxlength(255) required,
+    description String minlength(2) maxlength(4500) required,
+    price Double,
+    image ImageBlob
+}
+
+entity Passport {
+	additionTime Instant
+}
+
+relationship OneToOne {
+  Member{user} to User
+  Passport{member} to Member
+}
+
+relationship ManyToOne {
+	Beer{category} to Category
+    Manufacturer{country} to Country
+    Beer{manufacturer} to Manufacturer
+    Passport{beer} to Beer
+}
+
+// Set pagination options
+service * with serviceClass
+paginate * with pagination

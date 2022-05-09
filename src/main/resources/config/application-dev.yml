@@ -43,25 +43,6 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
-  jpa:
-    hibernate:
-      use-new-id-generator-mappings: false
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: update
-      properties:
-        org:
-          hibernate:
-            envers:
-              default_catalog: craft_audit
-              audit_table_suffix: _audit
-              revision_field_name: revision_id
-              revision_type_field_name: revision_type
-              store_data_at_delete: true
-      liquibase:
-        enabled: false
-        # Remove 'faker' if you do not want the sample data to be loaded automatically
-        contexts: dev, faker
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
