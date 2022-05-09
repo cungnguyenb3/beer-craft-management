@@ -1,32 +1,33 @@
 entity Country {
-	countryName String,
-    countryCode String,
+	countryName String minlength(2) maxlength(255) required,
+    countryCode String minlength(2) maxlength(10) required,
 	phoneCode Integer
 }
 
 entity Manufacturer {
-	companyName String
+	companyName String minlength(2) maxlength(255) required,
 }
 
 entity Member {
-    address String,
+    address String minlength(2) maxlength(255) required,
     dateOfBirth Instant,
-    phone String
+    phone String minlength(10) maxlength(20),
  }
 
 entity Category {
-	jobTitle String,
-    description String
+	name String minlength(2) maxlength(255) required,
+    description String minlength(2) maxlength(4500) required,
 }
 
 entity Beer {
-	name String,
-    description String,
-    price Double
+	name String minlength(2) maxlength(255) required,
+    description String minlength(2) maxlength(4500) required,
+    price Double,
+    image ImageBlob
 }
 
 entity Passport {
-	addtionTime Instant
+	additionTime Instant
 }
 
 relationship OneToOne {

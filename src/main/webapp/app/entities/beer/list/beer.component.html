@@ -1,0 +1,109 @@
+<div>
+  <h2 id="page-heading" data-cy="BeerHeading">
+    <span>Beers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-beer"
+        [routerLink]="['/beer/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Beer </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="beers?.length === 0">
+    <span>No beers found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="beers && beers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="price"><span>Price</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="image"><span>Image</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="category.id"><span>Category</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="manufacturer.id"><span>Manufacturer</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let beer of beers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/beer', beer.id, 'view']">{{ beer.id }}</a>
+          </td>
+          <td>{{ beer.name }}</td>
+          <td>{{ beer.description }}</td>
+          <td>{{ beer.price }}</td>
+          <td>
+            <a *ngIf="beer.image" (click)="openFile(beer.image, beer.imageContentType)">
+              <img [src]="'data:' + beer.imageContentType + ';base64,' + beer.image" style="max-height: 30px" alt="beer image" />
+            </a>
+            <span *ngIf="beer.image">{{ beer.imageContentType }}, {{ byteSize(beer.image) }}</span>
+          </td>
+          <td>
+            <div *ngIf="beer.category">
+              <a [routerLink]="['/category', beer.category?.id, 'view']">{{ beer.category?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="beer.manufacturer">
+              <a [routerLink]="['/manufacturer', beer.manufacturer?.id, 'view']">{{ beer.manufacturer?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/beer', beer.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/beer', beer.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(beer)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="beers && beers.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
