@@ -5,7 +5,7 @@ entity Country {
 }
 
 entity Manufacturer {
-	companyName String minlength(2) maxlength(255) required, 
+	companyName String minlength(2) maxlength(255) required,
 }
 
 entity Member {
@@ -13,10 +13,10 @@ entity Member {
     dateOfBirth Instant,
     phone String minlength(10) maxlength(20),
  }
- 
+
 entity Category {
 	name String minlength(2) maxlength(255) required,
-    description String minlength(2) maxlength(4500) required, 
+    description String minlength(2) maxlength(4500) required,
 }
 
 entity Beer {
