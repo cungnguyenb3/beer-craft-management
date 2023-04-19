@@ -211,3 +211,5 @@ jhipster:
 # ===================================================================
 
 # application:
+app:
+  firebase-configuration-file: cert/service-account-file.json
