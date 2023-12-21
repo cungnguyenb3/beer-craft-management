@@ -31,10 +31,14 @@ export class PasswordComponent implements OnInit {
     this.error = false;
     this.success = false;
     this.doNotMatch = false;
+    console.error(this.error);
+    console.error(this.success);
+    console.error(this.doNotMatch);
 
     const newPassword = this.passwordForm.get(['newPassword'])!.value;
     if (newPassword !== this.passwordForm.get(['confirmPassword'])!.value) {
       this.doNotMatch = true;
+      console.error(this.doNotMatch);
     } else {
       this.passwordService.save(newPassword, this.passwordForm.get(['currentPassword'])!.value).subscribe({
         next: () => (this.success = true),
